@@ -6,7 +6,6 @@ import (
 	"github.com/gosuri/uitable"
 	"github.com/matisiekpl/stravactl/internal/service"
 	"github.com/matisiekpl/stravactl/internal/util"
-	"time"
 )
 
 type ActivityController interface {
@@ -30,7 +29,7 @@ func (a *activityController) List(ctx context.Context) error {
 	table := uitable.New()
 	table.MaxColWidth = 80
 	table.Wrap = true
-	table.AddRow("SPORT", "ID", "NAME", "TIME", "DISTANCE", "HR", "SPEED", "AGE")
+	table.AddRow("SPORT", "ID", "NAME", "TIME", "DISTANCE", "HR", "SPEED", "ELEV", "AGE")
 	for _, activity := range activities {
 		table.AddRow(
 			string(activity.SportType),
@@ -40,7 +39,8 @@ func (a *activityController) List(ctx context.Context) error {
 			util.FormatDistance(activity.Distance),
 			util.FormatHeartRate(activity),
 			util.FormatSpeed(activity),
-			activity.StartDateLocal.Format(time.DateTime),
+			util.FormatElevationGain(activity.TotalElevationGain),
+			activity.StartDateLocal.Format("02 Jan 2006 15:04"),
 		)
 	}
 	fmt.Println(table)
