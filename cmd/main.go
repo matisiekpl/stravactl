@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"github.com/matisiekpl/stravactl/internal/controller"
@@ -13,7 +13,7 @@ import (
 const stravaAccessTokenEnvKey = "STRAVA_ACCESS_TOKEN"
 const stravaSettingsPageUrl = "https://www.strava.com/settings/api"
 
-func main() {
+func Run() {
 	if os.Getenv(stravaAccessTokenEnvKey) == "" {
 		logrus.Fatalf("%s environment variable is not set. Go to %s and grab access token", stravaAccessTokenEnvKey, stravaSettingsPageUrl)
 	}
